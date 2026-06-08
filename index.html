@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rate Your Experience</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.container{
+    background:#fff;
+    width:100%;
+    max-width:500px;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.logo h1{
+    color:#2563eb;
+    font-size:28px;
+}
+
+.subtitle{
+    text-align:center;
+    color:#555;
+    margin-bottom:25px;
+}
+
+.rating{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-bottom:20px;
+}
+
+.star{
+    font-size:38px;
+    cursor:pointer;
+    color:#ccc;
+    transition:.2s;
+}
+
+.star.active{
+    color:#fbbf24;
+}
+
+input, textarea{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    margin-bottom:15px;
+    font-size:15px;
+}
+
+textarea{
+    height:120px;
+    resize:none;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:10px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+.note{
+    margin-top:12px;
+    text-align:center;
+    color:#666;
+    font-size:13px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <h1>Your Store Name</h1>
+    </div>
+
+    <p class="subtitle">
+        We'd love to hear your feedback ❤️
+    </p>
+
+    <div class="rating">
+        <span class="star" onclick="rate(1)">★</span>
+        <span class="star" onclick="rate(2)">★</span>
+        <span class="star" onclick="rate(3)">★</span>
+        <span class="star" onclick="rate(4)">★</span>
+        <span class="star" onclick="rate(5)">★</span>
+    </div>
+
+    <input type="text" id="name" placeholder="Your Name">
+
+    <textarea id="review"
+        placeholder="Write your experience..."></textarea>
+
+    <button onclick="submitReview()">
+        Post Review on Google
+    </button>
+
+    <div class="note">
+        Thank you for supporting us ⭐
+    </div>
+
+</div>
+
+<script>
+let selectedRating = 0;
+
+function rate(value){
+    selectedRating = value;
+
+    document.querySelectorAll('.star').forEach((star,index)=>{
+        star.classList.toggle('active', index < value);
+    });
+}
+
+function submitReview(){
+
+    const name = document.getElementById('name').value;
+    const review = document.getElementById('review').value;
+
+    const text =
+`Name: ${name}
+
+Rating: ${selectedRating}/5
+
+Review:
+${review}`;
+
+    localStorage.setItem("customerReview", text);
+
+    window.open(
+        "GOOGLE_REVIEW_LINK",
+        "_blank"
+    );
+}
+</script>
+
+</body>
+</html>
